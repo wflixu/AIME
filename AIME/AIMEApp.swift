@@ -10,6 +10,9 @@ import SwiftData
 
 @main
 struct AIMEApp: App {
+    @NSApplicationDelegateAdaptor private var appDelegate: AppDelegate
+    
+    
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Item.self,

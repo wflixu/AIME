@@ -26,7 +26,7 @@ struct ContentView: View {
             }
             .navigationSplitViewColumnWidth(min: 180, ideal: 200)
         } detail: {
-            Text("Select an item")
+            DemoView()
         }
     }
 

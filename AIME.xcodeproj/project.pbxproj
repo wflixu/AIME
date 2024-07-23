@@ -13,6 +13,10 @@
 		5CA254F22C46580300AB9301 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5CA254F12C46580300AB9301 /* Assets.xcassets */; };
 		5CA254F52C46580300AB9301 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5CA254F42C46580300AB9301 /* Preview Assets.xcassets */; };
 		5CA254FD2C465B0F00AB9301 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA254FC2C465B0F00AB9301 /* AppDelegate.swift */; };
+		5CA255002C467B7300AB9301 /* AppLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA254FF2C467B7300AB9301 /* AppLog.swift */; };
+		5CA255022C46864200AB9301 /* DemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA255012C46864200AB9301 /* DemoView.swift */; };
+		5CA255042C46BAB300AB9301 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA255032C46BAB300AB9301 /* Record.swift */; };
+		5CA255062C46BCA800AB9301 /* RecordStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA255052C46BCA800AB9301 /* RecordStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +28,10 @@
 		5CA254F42C46580300AB9301 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5CA254F62C46580300AB9301 /* AIME.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AIME.entitlements; sourceTree = "<group>"; };
 		5CA254FC2C465B0F00AB9301 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		5CA254FF2C467B7300AB9301 /* AppLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLog.swift; sourceTree = "<group>"; };
+		5CA255012C46864200AB9301 /* DemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoView.swift; sourceTree = "<group>"; };
+		5CA255032C46BAB300AB9301 /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
+		5CA255052C46BCA800AB9301 /* RecordStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,9 +64,11 @@
 		5CA254EA2C46580200AB9301 /* AIME */ = {
 			isa = PBXGroup;
 			children = (
+				5CA254FE2C467B5400AB9301 /* shared */,
 				5CA254EB2C46580200AB9301 /* AIMEApp.swift */,
 				5CA254FC2C465B0F00AB9301 /* AppDelegate.swift */,
 				5CA254ED2C46580200AB9301 /* ContentView.swift */,
+				5CA255012C46864200AB9301 /* DemoView.swift */,
 				5CA254EF2C46580200AB9301 /* Item.swift */,
 				5CA254F12C46580300AB9301 /* Assets.xcassets */,
 				5CA254F62C46580300AB9301 /* AIME.entitlements */,
@@ -73,6 +83,16 @@
 				5CA254F42C46580300AB9301 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		5CA254FE2C467B5400AB9301 /* shared */ = {
+			isa = PBXGroup;
+			children = (
+				5CA254FF2C467B7300AB9301 /* AppLog.swift */,
+				5CA255032C46BAB300AB9301 /* Record.swift */,
+				5CA255052C46BCA800AB9301 /* RecordStore.swift */,
+			);
+			path = shared;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -145,8 +165,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CA255062C46BCA800AB9301 /* RecordStore.swift in Sources */,
 				5CA254FD2C465B0F00AB9301 /* AppDelegate.swift in Sources */,
+				5CA255022C46864200AB9301 /* DemoView.swift in Sources */,
+				5CA255002C467B7300AB9301 /* AppLog.swift in Sources */,
 				5CA254EE2C46580200AB9301 /* ContentView.swift in Sources */,
+				5CA255042C46BAB300AB9301 /* Record.swift in Sources */,
 				5CA254F02C46580200AB9301 /* Item.swift in Sources */,
 				5CA254EC2C46580200AB9301 /* AIMEApp.swift in Sources */,
 			);
