@@ -7,20 +7,11 @@
 
 import Foundation
 
-
 import os.log
-
-
 
 private let logger = Logger(subsystem: "cn.wflixu.aime", category: "store")
 
 @Observable
 class MenuItemStore {
-   
-    
-    var records:[String: String]  = [:];
-    
-
+    var records: [String: String] = [:]
 }
-
-

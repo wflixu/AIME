@@ -7,6 +7,4 @@
 
 import Foundation
 
-struct Record {
-    
-}
+struct Record {}

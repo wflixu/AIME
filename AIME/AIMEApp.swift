@@ -5,31 +5,23 @@
 //  Created by lixu on 2024/7/16.
 //
 
+
 import SwiftUI
-import SwiftData
 
 @main
 struct AIMEApp: App {
     @NSApplicationDelegateAdaptor private var appDelegate: AppDelegate
-    
-    
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Item.self,
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
-        do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
-        }
-    }()
+    @AppStorage("showMenuBarExtra") private var showMenuBarExtra = true
 
     var body: some Scene {
-        WindowGroup {
-            ContentView()
+        Settings {
+            SettingsView()
         }
-        .modelContainer(sharedModelContainer)
+        MenuBarExtra("AIME", systemImage: "keyboard", isInserted: $showMenuBarExtra) {
+            StatusMenuView()
+        }
     }
 }
+
+
+
