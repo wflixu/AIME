@@ -15,7 +15,6 @@
 		5CA255022C46864200AB9301 /* DemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA255012C46864200AB9301 /* DemoView.swift */; };
 		5CA255042C46BAB300AB9301 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA255032C46BAB300AB9301 /* Record.swift */; };
 		5CA255062C46BCA800AB9301 /* RecordStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA255052C46BCA800AB9301 /* RecordStore.swift */; };
-		5CD0B9FA2C4F69BC00B1AF02 /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD0B9F92C4F69BC00B1AF02 /* Debouncer.swift */; };
 		5CD0B9FC2C4FDB3700B1AF02 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD0B9FB2C4FDB3700B1AF02 /* SettingsView.swift */; };
 		5CD0B9FE2C4FDD1E00B1AF02 /* StatusMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD0B9FD2C4FDD1E00B1AF02 /* StatusMenuView.swift */; };
 /* End PBXBuildFile section */
@@ -31,7 +30,6 @@
 		5CA255012C46864200AB9301 /* DemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoView.swift; sourceTree = "<group>"; };
 		5CA255032C46BAB300AB9301 /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
 		5CA255052C46BCA800AB9301 /* RecordStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordStore.swift; sourceTree = "<group>"; };
-		5CD0B9F92C4F69BC00B1AF02 /* Debouncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debouncer.swift; sourceTree = "<group>"; };
 		5CD0B9FB2C4FDB3700B1AF02 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		5CD0B9FD2C4FDD1E00B1AF02 /* StatusMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusMenuView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -93,7 +91,6 @@
 				5CA254FF2C467B7300AB9301 /* AppLog.swift */,
 				5CA255032C46BAB300AB9301 /* Record.swift */,
 				5CA255052C46BCA800AB9301 /* RecordStore.swift */,
-				5CD0B9F92C4F69BC00B1AF02 /* Debouncer.swift */,
 			);
 			path = shared;
 			sourceTree = "<group>";
@@ -169,7 +166,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CA255062C46BCA800AB9301 /* RecordStore.swift in Sources */,
-				5CD0B9FA2C4F69BC00B1AF02 /* Debouncer.swift in Sources */,
 				5CD0B9FE2C4FDD1E00B1AF02 /* StatusMenuView.swift in Sources */,
 				5CA254FD2C465B0F00AB9301 /* AppDelegate.swift in Sources */,
 				5CD0B9FC2C4FDB3700B1AF02 /* SettingsView.swift in Sources */,
@@ -217,6 +213,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -280,6 +277,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -313,9 +311,11 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 5;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"AIME/Preview Content\"";
 				DEVELOPMENT_TEAM = 4L3563XCBN;
+				ENABLE_APP_SANDBOX = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -346,9 +346,11 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 5;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"AIME/Preview Content\"";
 				DEVELOPMENT_TEAM = 4L3563XCBN;
+				ENABLE_APP_SANDBOX = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;

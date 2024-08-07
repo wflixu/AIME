@@ -9,17 +9,14 @@ import Carbon
 import Cocoa
 import Foundation
 
+@MainActor
 class AppDelegate: NSObject, NSApplicationDelegate {
     @AppLog()
     private var logger
     
-    var records: [String: String] = [:]
+    var records: [String: TISInputSource] = [:]
     
-    var currentAppBundleIdentifier: String?
-    
-    var settingApp: String = ""
-    
-    let debouncer = Debouncer(delay: 1)
+    var inputSourceChangeInProgress = false
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         logger.info(" app did finish ")
@@ -27,11 +24,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         DistributedNotificationCenter.default.addObserver(
             self,
-            selector: #selector(recordInputSourceChange),
+            selector: #selector(inputSourceChanged),
             name: NSNotification.Name(kTISNotifySelectedKeyboardInputSourceChanged as String),
             object: nil
         )
     }
+
     func applicationWillTerminate(_ notification: Notification) {
         DistributedNotificationCenter.default.removeObserver(self)
         NSWorkspace.shared.notificationCenter.removeObserver(self)
@@ -41,88 +39,73 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         DistributedNotificationCenter.default.removeObserver(self)
         NSWorkspace.shared.notificationCenter.removeObserver(self)
     }
+
+    @objc func inputSourceChanged() {
+        logger.info("event change handle")
+        if inputSourceChangeInProgress {
+            return
+        }
+        
+        inputSourceChangeInProgress = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.inputSourceChangeInProgress = false
+        }
+        guard
+            let bundleIdentifier = NSWorkspace.shared.frontmostApplication?.bundleIdentifier
+        else {
+            return
+        }
+        
+        let currentInputSource = TISCopyCurrentKeyboardInputSource().takeRetainedValue()
+        logger.info("changed log: \(bundleIdentifier) -- ")
+        records[bundleIdentifier] = currentInputSource
+    }
     
     @objc func appDidActivate(notification: NSNotification) {
         if let userInfo = notification.userInfo,
            let app = userInfo[NSWorkspace.applicationUserInfoKey] as? NSRunningApplication,
            let bundleIdentifier = app.bundleIdentifier
         {
-            if bundleIdentifier != currentAppBundleIdentifier {
-                currentAppBundleIdentifier = bundleIdentifier
-                settingApp = bundleIdentifier
-                switchInputMethod(for: bundleIdentifier)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                    self.settingApp = ""
+            guard let currentInputSourceId = getCurrentInputSourceId() else {
+                return
+            }
+            
+            logger.info("appDidActivate：\(bundleIdentifier)")
+            
+            if let lastSource = records[bundleIdentifier], let lastSourceID = getInputSouceId(inputSource: lastSource) {
+                if lastSourceID != currentInputSourceId {
+                    logger.info("start set input .....：\(bundleIdentifier)")
+                    inputSourceChangeInProgress = true
+                    TISSelectInputSource(lastSource)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        self.inputSourceChangeInProgress = true
+                    }
                 }
-            }
-        }
-    }
-    
-    func switchInputMethod(for bundleIdentifier: String) {
-        if let lastSourceID = records[bundleIdentifier], let currentInputSourceId = getCurrentAppBundleID() {
-            if lastSourceID != currentInputSourceId {
-                setLastInputMethod(lastSourceID)
-            }
-        } else {
-            record(bundleIdentifier)
-        }
-    }
-    
-    func setLastInputMethod(_ sourceID: String) {
-        guard let sourceList = TISCreateInputSourceList(nil, false).takeRetainedValue() as? [TISInputSource], let bundleID = getCurrentAppBundleID() else {
-            return
-        }
-        
-        for source in sourceList {
-            if let sourceIDPointer = TISGetInputSourceProperty(source, kTISPropertyInputSourceID) {
-                let sourceIDString = Unmanaged<CFString>.fromOpaque(sourceIDPointer).takeUnretainedValue() as String
-                
-                if sourceIDString == sourceID {
-                    logger.info("setInput: \(bundleID) -- \(sourceID)")
-                    settingApp = bundleID
-                    TISSelectInputSource(source)
-                    break
-                }
-            }
-        }
-    }
-        
-    func record(_ bundle: String) {
-        if let sourceID = getCurrentInputSourceId() {
-            logger.info("record: \(bundle) -- \(sourceID)")
-            records[bundle] = sourceID
-        }
-    }
-    
-    @objc func getCurrentInputSourceId() -> String? {
-        if let currentKeyboard = TISCopyCurrentKeyboardInputSource()?.takeRetainedValue() {
-            // 获取输入源的本地化名字
-            if let soureIDPointer = TISGetInputSourceProperty(currentKeyboard, kTISPropertyInputSourceID) {
-                let sourceID = Unmanaged<CFString>.fromOpaque(soureIDPointer).takeUnretainedValue() as String
-                return sourceID
-                
             } else {
-                return nil
+                let currentInputSource = TISCopyCurrentKeyboardInputSource().takeRetainedValue()
+                logger.info("changed log at app launched: \(bundleIdentifier) -- ")
+                records[bundleIdentifier] = currentInputSource
             }
-        } else {
-            return nil
         }
     }
+
+    func getInputSouceId(inputSource: TISInputSource) -> String? {
+        var id: String? = nil
+        if
+            let inputSourceID = TISGetInputSourceProperty(inputSource, kTISPropertyInputSourceID)
+        {
+            id = Unmanaged<CFString>.fromOpaque(inputSourceID).takeUnretainedValue() as String
+        }
+
+        return id
+    }
     
+    func getCurrentInputSourceId() -> String? {
+        let currentInputSource = TISCopyCurrentKeyboardInputSource().takeRetainedValue()
+        return getInputSouceId(inputSource: currentInputSource)
+    }
+
     func getCurrentAppBundleID() -> String? {
         return NSWorkspace.shared.frontmostApplication?.bundleIdentifier
-    }
-    
-    @objc func recordInputSourceChange() {
-        logger.info("event change handle")
-        if let bundleID = getCurrentAppBundleID(), let sourceID = getCurrentInputSourceId(), let curddd = currentAppBundleIdentifier {
-            if settingApp == bundleID {
-                logger.info("changed log ###: \(bundleID) -- \(sourceID)--\(curddd)")
-                 
-            } else {
-                logger.info("changed log: \(bundleID) -- \(sourceID)--\(curddd)")
-                records[bundleID] = sourceID
-            }
-        }
     }
 }
