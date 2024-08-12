@@ -6,8 +6,9 @@ Automatically switches the input method according to the current application
 
 # features
 
-[x] record current app input method
-[ ] set app default input method
+- [x] record current app input method
+
+- [ ] set app default input method
 
 
 # download
